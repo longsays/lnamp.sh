@@ -9,7 +9,7 @@ I have been using the damnp-actgod.sh for over two years, finally I found it not
 ****Oringin From****: https://github.com/lowendbox/lowendscript
 
 #USAGE
-```
+```PowerShell
 bash tyleamp.sh system # Minimizeinimize the system, replace sshd by dropbear
 bash tyleamp.sh exim4 # Relace for a lighweighted email system, Exim4 
 bash tyleamp.sh mysql # Install MySql server 
