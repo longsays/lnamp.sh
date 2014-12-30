@@ -1,5 +1,5 @@
 #!/bin/bash
-#Original damnp-actgod.sh
+#First usable tyleamp.sh on Debian 7, test on securedragon 512M OpenVZ VPS and my own Mini-ITX PC with Debian 163.com Mirror.
 
 function check_install {
     if [ -z "`which "$1" 2>/dev/null`" ]
@@ -126,9 +126,8 @@ function install_mysql {
     rm -f /var/lib/mysql/ib*
     cat > /etc/mysql/conf.d/actgod.cnf <<END
 [mysqld]
-key_buffer = 8M
+key_buffer_size = 8M
 query_cache_size = 0
-skip-innodb
 END
     invoke-rc.d mysql start
 
@@ -184,7 +183,7 @@ EXND
 }
 
 function install_php {
-    apt-get -q -y --force-yes install php5-cli php5-mysql php5-gd
+    apt-get -q -y --force-yes install php5-fpm  php5-mysql php5-common php5-gd  php5-mcrypt   php5-tidy php5-curl 
   }
 	
 function install_apache {
@@ -193,7 +192,7 @@ apt-get -q -y --force-yes install apache2 libapache2-mod-php5 libapache2-mod-rpa
 	sed -i s/'Listen 80'/'Listen 127.0.0.1:168'/g /etc/apache2/ports.conf 
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.old
 	cat > /etc/apache2/apache2.conf <<EXNDDQW
-LockFile \${APACHE_LOCK_DIR}/accept.lock
+LockFile ${APACHE_LOCK_DIR}/accept.lock
 PidFile \${APACHE_PID_FILE}
 Timeout 300
 KeepAlive On
@@ -215,7 +214,6 @@ ErrorLog \${APACHE_LOG_DIR}/error.log
 LogLevel warn
 Include mods-enabled/*.load
 Include mods-enabled/*.conf
-Include httpd.conf
 Include ports.conf
 LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
 LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
@@ -226,8 +224,8 @@ Include conf.d/
 Include sites-enabled/
 EXNDDQW
 
-echo "rewrite headers expires" | a2enmod
-echo "alias auth_basic authn_file authz_default authz_groupfile authz_host authz_user autoindex cgi env negotiation status" | a2dismod
+echo "rewrite headers expires authz_host" | a2enmod
+echo "alias auth_basic authn_file authz_default authz_groupfile authz_user autoindex cgi env negotiation status" | a2dismod
 rm /etc/apache2/sites-enabled/000-default
 /etc/init.d/apache2 restart
 /etc/init.d/nginx restart
@@ -938,17 +936,15 @@ function update_stable {
 
 cp	/etc/apt/sources.list /etc/apt/sources.list.backup
 cat > /etc/apt/sources.list <<END
-deb http://mirror.peer1.net/debian/ squeeze main
-deb-src http://mirror.peer1.net/debian/ squeeze main
-deb http://mirror.peer1.net/debian/ squeeze-updates main
-deb-src http://mirror.peer1.net/debian/ squeeze-updates main
-deb http://mirror.peer1.net/debian-security/ squeeze/updates main
-deb-src http://mirror.peer1.net/debian-security/ squeeze/updates main
-deb http://nginx.org/packages/debian/ squeeze nginx
-deb-src http://nginx.org/packages/debian/ squeeze nginx
+deb http://ftp.debian.org/debian wheezy main contrib non-free
+deb http://security.debian.org wheezy/updates main contrib non-free
+deb http://nginx.org/packages/debian/ wheezy nginx
+deb-src http://nginx.org/packages/debian/ wheezy nginx
 END
-    apt-get -q -y update
-	apt-get -y install libc6 perl libdb2 debconf
+	apt-get -q -y update
+	apt-get -q -y upgrade
+	apt-get -q -y dist-upgrade
+	apt-get -y install libc6 perl libdb2 debconf dialog bsdutils
 	apt-get -y install apt apt-utils dselect dpkg
     #~ apt-get -q -y upgrade
 }
@@ -1087,7 +1083,7 @@ addnginx)
 		;;
 addapache)
 cat > /etc/apache2/apache2.conf <<EXNDDQW
-LockFile \${APACHE_LOCK_DIR}/accept.lock
+LockFile ${APACHE_LOCK_DIR}/accept.lock
 PidFile \${APACHE_PID_FILE}
 Timeout 300
 KeepAlive On
@@ -1109,7 +1105,6 @@ ErrorLog \${APACHE_LOG_DIR}/error.log
 LogLevel warn
 Include mods-enabled/*.load
 Include mods-enabled/*.conf
-Include httpd.conf
 Include ports.conf
 LogFormat "%v:%p %h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" vhost_combined
 LogFormat "%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
@@ -1149,4 +1144,3 @@ END
     done
     ;;
 esac
-
