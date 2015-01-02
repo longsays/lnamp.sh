@@ -183,7 +183,7 @@ EXND
 }
 
 function install_php {
-    apt-get -q -y --force-yes install php5-fpm  php5-mysql php5-common php5-gd  php5-mcrypt   php5-tidy php5-curl 
+   apt-get -q -y --force-yes install php5-cli php5-mysql php5-gd 
   }
 	
 function install_apache {
