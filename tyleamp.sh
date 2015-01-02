@@ -793,7 +793,7 @@ eof
 
 function install_rainloop {
     check_install wget wget
-    check install bsdtar bsdtar
+    check_install bsdtar bsdtar
     if [ -z "$1" ]
     then
         die "Usage: `basename $0` wordpress <hostname>"
