@@ -18,6 +18,7 @@ bash tyleamp.sh php # Install php, includes php5-gd
 bash tyleamp.sh apache #Install apache2 with basic mods, 3 max processes by default(adjustble)
 bash tyleamp.sh stable # Install all listed above
 bash tyleamp.sh wordpress_en yourdomain # Install wordpress with new mysql database 
+bash tyleamp.sh rainloop yourdomain # Install Rainloop withou mysql writing to the config(Test Function)
 bash tyleamp.sh vhost yourdomain # Setup a virtual host for static pages
 bash tyleamp.sh dhost yourdomain # Setup a virtual host with php supported
 bash tyleamp.sh phpmyadmin yourdomain # Setup PhpMyAdmin 
