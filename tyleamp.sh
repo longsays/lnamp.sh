@@ -791,6 +791,101 @@ eof
 }
 
 
+function install_rainloop {
+    check_install wget wget
+    check install bsdtar bsdtar
+    if [ -z "$1" ]
+    then
+        die "Usage: `basename $0` wordpress <hostname>"
+    fi
+
+    # Downloading the Rainloop' latest and greatest distribution.
+    mkdir /tmp/rainloop.$$
+    wget -O - http://repository.rainloop.net/v2/webmail/rainloop-latest.zip | \
+    bsdtar xf - -C /tmp/rainloop.$$
+    mv /tmp/rainloop.$$ "/var/www/$1"
+    rm -rf /tmp/rainloop.$$
+    chown -R www-data "/var/www/$1"
+    chmod -R 755 "/var/www/$1"
+
+    #
+    # Setting up the MySQL database
+    dbname=`echo $1 | tr . _`
+    userid=`get_domain_name $1`
+    # MySQL userid cannot be more than 15 characters long
+    userid="${userid:0:15}"
+    mysqladmin create "$dbname"
+    echo "GRANT ALL PRIVILEGES ON \`$dbname\`.* TO \`$userid\`@localhost IDENTIFIED BY '$passwd';" | \
+        mysql
+
+    # Setting up Nginx mapping
+    cat > "/etc/nginx/conf.d/$1.conf" <<END
+server
+        {
+                listen       80;
+                server_name $1;
+                index index.html index.htm index.php default.html default.htm default.php;
+                root  /var/www/$1;
+
+                location / {
+                        try_files \$uri @apache;
+                        }
+               location @apache {
+                        internal;
+                        proxy_pass http://127.0.0.1:168;
+                        include proxy.conf;
+                        }
+
+                location ~ .*\.(php|php5)?$
+                        {
+                                proxy_pass http://127.0.0.1:168;
+                                include proxy.conf;
+                        }
+
+                location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|ico)$
+                        {
+                                expires      30d;
+                        }
+
+                location ~ .*\.(js|css)?$
+                        {
+                                expires      12h;
+                        }
+
+                $al
+        }
+END
+
+cat >> "/root/$1.mysql.txt" <<END
+[rainloop_myqsl]
+dbname = $dbname
+username = $userid
+password = $passwd
+END
+    invoke-rc.d nginx reload
+
+        ServerAdmin=""
+        read -p "Please input Administrator Email Address:" ServerAdmin
+        if [ "$ServerAdmin" == "" ]; then
+                echo "Administrator Email Address will set to webmaster@example.com!"
+                ServerAdmin="webmaster@example.com"
+        else
+        echo "==========================="
+        echo Server Administrator Email="$ServerAdmin"
+        echo "==========================="
+        fi
+        cat >/etc/apache2/conf.d/$1.conf<<eof
+<VirtualHost *:168>
+ServerAdmin $ServerAdmin
+php_admin_value open_basedir "/var/www/$1:/tmp/:/var/tmp/:/proc/"
+DocumentRoot /var/www/$1
+ServerName $1
+#ErrorLog /var/log/apache2/$1_error.log
+#CustomLog /var/log/apache2/$1_access.log combined
+</VirtualHost>
+eof
+/etc/init.d/apache2 restart
+}
 
 function install_phpmyadmin {
     check_install wget wget
@@ -1035,6 +1130,9 @@ wordpress)
     ;;
 wordpress_en)
     install_wordpress_en $2
+    ;;
+rainloop)
+    install_rainloop $2
     ;;
 stable)
 	check_version 
