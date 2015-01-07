@@ -183,7 +183,7 @@ EXND
 }
 
 function install_php {
-   apt-get -q -y --force-yes install php5-cli php5-mysql php5-gd 
+   apt-get -q -y --force-yes install php5-cli php5-mysql php5-gd php5-mcrypt php5-tidy php5-curl
   }
 	
 function install_apache {
@@ -1236,7 +1236,7 @@ END
 *)
     echo 'Usage:' `basename $0` '[option]'
     echo 'Available option:'
-    for option in system exim4 mysql nginx php wordpress wordpress_en typecho ssh addnginx stable testing dhost vhost httpproxy eaccelerator  apache addapache sshport phpmyadmin
+    for option in system exim4 mysql nginx php wordpress wordpress_en rainloop ssh addnginx stable testing dhost vhost httpproxy eaccelerator  apache addapache sshport phpmyadmin
     do
         echo '  -' $option
     done
