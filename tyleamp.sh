@@ -154,12 +154,8 @@ function install_nginx {
         then
         mkdir /etc/nginx/conf.d
 	fi
-    cat > /etc/nginx/conf.d/actgod.conf <<END
-client_max_body_size 20m;
-server_names_hash_bucket_size 64;
-END
+
     sed -i s/'^worker_processes [0-9];'/'worker_processes 1;'/g /etc/nginx/nginx.conf
-	sed -i '/http {/a \\t##\n\t# tyleamp: adding limitation of limit_conn_zone and limit_req_zone\n\t##\n\n\tlimit_conn_zone $binary_remote_addr zone=addr:10m;\n\tlimit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;\n' /etc/nginx/nginx.conf
 	invoke-rc.d nginx restart
 	if [ ! -d /var/www ];
         then
@@ -385,8 +381,6 @@ server
 		root  /var/www/$1;
 
 		location / {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			try_files \$uri @apache;
 			}
 
@@ -398,8 +392,6 @@ server
 
 		location ~ .*\.(php|php5)?$
 			{
-                                limit_conn addr 2;
-                                limit_req zone=one burst=5 nodelay;
 				proxy_pass http://127.0.0.1:168;
 				include proxy.conf;
 			}
@@ -411,7 +403,7 @@ server
 
 		location ~ .*\.(js|css)?$
 			{
-				expires      12h;
+				expires      30d;
 			}
 
 		$al
@@ -497,8 +489,6 @@ server
 		root  /var/www/$1;
 
 		location / {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			try_files \$uri @apache;
 			}
 
@@ -510,8 +500,6 @@ server
 
 		location ~ .*\.(php|php5)?$
 			{
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			proxy_pass http://127.0.0.1:168;
 			include proxy.conf;
 			}
@@ -523,7 +511,7 @@ server
 
 		location ~ .*\.(js|css)?$
 			{
-				expires      12h;
+				expires      30d;
 			}
 
 		$al
@@ -626,8 +614,6 @@ server
 		root  /var/www/$1;
 
 		location / {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			try_files \$uri @apache;
 			}
 
@@ -639,8 +625,6 @@ server
 
 		location ~ .*\.(php|php5)?$
 			{
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			proxy_pass http://127.0.0.1:168;
 			include proxy.conf;
 			}
@@ -652,7 +636,7 @@ server
 
 		location ~ .*\.(js|css)?$
 			{
-				expires      12h;
+				expires      30d;
 			}
 
 		$al
@@ -743,8 +727,6 @@ server
 		root  /var/www/$1;
 
 		location / {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			try_files \$uri @apache;
 			}
 
@@ -756,8 +738,6 @@ server
 
 		location ~ .*\.(php|php5)?$
 			{
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			proxy_pass http://127.0.0.1:168;
 			include proxy.conf;
 			}
@@ -769,7 +749,7 @@ server
 
 		location ~ .*\.(js|css)?$
 			{
-				expires      12h;
+				expires      30d;
 			}
 
 		$al
@@ -845,8 +825,6 @@ server
                 root  /var/www/$1;
 
                 location / {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
                         try_files \$uri @apache;
                         }
 
@@ -858,8 +836,6 @@ server
 
                 location ~ .*\.(php|php5)?$
                         {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
                         proxy_pass http://127.0.0.1:168;
                         include proxy.conf;
                         }
@@ -871,7 +847,7 @@ server
 
                 location ~ .*\.(js|css)?$
                         {
-                                expires      12h;
+                                expires      30d;
                         }
 
                 $al
@@ -935,8 +911,6 @@ server
 		root  /var/www/$1;
 
 		location / {
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			try_files \$uri @apache;
 			}
 
@@ -948,8 +922,6 @@ server
 
 		location ~ .*\.(php|php5)?$
 			{
-                        limit_conn addr 2;
-                        limit_req zone=one burst=10;
 			proxy_pass http://127.0.0.1:168;
 			include proxy.conf;
 			}
@@ -961,7 +933,7 @@ server
 
 		location ~ .*\.(js|css)?$
 			{
-				expires      12h;
+				expires      30d;
 			}
 
 		$al
