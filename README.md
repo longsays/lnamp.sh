@@ -4,7 +4,6 @@ Debian 7 minimal setup script modified from actgod.com, which allows easily Linu
 
 I have been using the damnp-actgod.sh for over two years, finally I found it not working any more on Debian 7. I spend some time to modify it, it is not a easy work for this Linux newbee.
 
-Adding some limitation of limit_conn_zone and limit_req_zone avoiding server down from keeping pressing F5 key
 
 
 **Modified from**: http://actgod.com/archives/35
