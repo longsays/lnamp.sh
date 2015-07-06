@@ -802,7 +802,7 @@ function install_rainloop {
     bsdtar xf - -C /tmp/rainloop.$$
     mv /tmp/rainloop.$$ "/var/www/$1"
     rm -rf /tmp/rainloop.$$
-    cat > "/var/www/$1" <<END
+    cat > "/var/www/$1/.htaccess" <<END
     php_value upload_max_filesize 8m
     php_value post_max_size 25m
 END
