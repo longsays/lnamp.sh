@@ -358,13 +358,12 @@ function install_dhost {
 	chmod -R 755 "/var/www/$1"
 
 
-wget -P "/var/www/$1" http://linux-bash.googlecode.com/files/tz.php
 
 
 cat > "/var/www/$1/phpmyadmin.sh" <<END
 #!/bin/bash
     mkdir /tmp/wordpress.\$$
-    wget -O - http://linux-bash.googlecode.com/files/phpMyAdmin.tar.gz | \
+    wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
         tar zxf - -C /tmp/wordpress.\$$
     mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
     rm -rf /tmp/wordpress.\$$
@@ -449,19 +448,18 @@ function install_typecho {
 
     # Downloading the WordPress' latest and greatest distribution.
 		rm -rf /tmp/build
-    wget -O - "http://typecho.googlecode.com/files/0.8(10.8.15)-release.tar.gz" | \
+    wget -O - "https://github.com/typecho/typecho/releases/download/v1.0-14.10.10-release/1.0.14.10.10.-release.tar.gz" | \
         tar zxf - -C /tmp/
     mv /tmp/build/ "/var/www/$1"
     rm -rf /tmp/build
  	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-wget -P "/var/www/$1" http://linux-bash.googlecode.com/files/tz.php
 
 cat > "/var/www/$1/phpmyadmin.sh" <<END
 #!/bin/bash
     mkdir /tmp/wordpress.\$$
-    wget -O - http://linux-bash.googlecode.com/files/phpMyAdmin.tar.gz | \
+    wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
         tar zxf - -C /tmp/wordpress.\$$
     mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
     rm -rf /tmp/wordpress.\$$
@@ -578,12 +576,11 @@ function install_wordpress_cn {
     chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-wget -P "/var/www/$1" http://linux-bash.googlecode.com/files/tz.php
 
 cat > "/var/www/$1/phpmyadmin.sh" <<END
 #!/bin/bash
     mkdir /tmp/wordpress.\$$
-    wget -O - http://linux-bash.googlecode.com/files/phpMyAdmin.tar.gz | \
+    wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
         tar zxf - -C /tmp/wordpress.\$$
     mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
     rm -rf /tmp/wordpress.\$$
@@ -691,12 +688,11 @@ function install_wordpress_en {
     chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-wget -P "/var/www/$1" http://linux-bash.googlecode.com/files/tz.php
 
 cat > "/var/www/$1/phpmyadmin.sh" <<END
 #!/bin/bash
     mkdir /tmp/wordpress.\$$
-    wget -O - http://linux-bash.googlecode.com/files/phpMyAdmin.tar.gz | \
+    wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
         tar zxf - -C /tmp/wordpress.\$$
     mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
     rm -rf /tmp/wordpress.\$$
@@ -898,7 +894,7 @@ function install_phpmyadmin {
 
     # Downloading the WordPress' latest and greatest distribution.
     mkdir /tmp/wordpress.$$
-    wget -O - http://linux-bash.googlecode.com/files/phpMyAdmin.tar.gz | \
+    wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
         tar zxf - -C /tmp/wordpress.$$
     mv /tmp/wordpress.$$/phpMyAdmin "/var/www/$1"
     rm -rf /tmp/wordpress.$$
