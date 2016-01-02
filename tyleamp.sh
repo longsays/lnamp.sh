@@ -189,7 +189,7 @@ apt-get -q -y --force-yes install apache2 libapache2-mod-php5 libapache2-mod-rpa
 	sed -i s/'Listen 80'/'Listen 127.0.0.1:168'/g /etc/apache2/ports.conf 
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.old
 	cat > /etc/apache2/apache2.conf <<EXNDDQW
-LockFile ${APACHE_LOCK_DIR}/accept.lock
+#LockFile ${APACHE_LOCK_DIR}/accept.lock
 PidFile \${APACHE_PID_FILE}
 Timeout 300
 KeepAlive On
@@ -313,7 +313,7 @@ function install_vhost {
 	check_install wget wget
 	if [ -z "$1" ]
 	then
-		die "Usage: `basename $0` wordpress <hostname>"
+		die "Usage: `basename $0` vhost <hostname>"
 	fi
 
 	if [ ! -d /var/www ];
@@ -351,7 +351,7 @@ function install_dhost {
 	fi
 	if [ -z "$1" ]
 	then
-		die "Usage: `basename $0` wordpress <hostname>"
+		die "Usage: `basename $0` dhost <hostname>"
 	fi
 	mkdir "/var/www/$1"
  	chown -R www-data "/var/www/$1"
@@ -443,7 +443,7 @@ function install_typecho {
 	fi
 	if [ -z "$1" ]
 	then
-		die "Usage: `basename $0` wordpress <hostname>"
+		die "Usage: `basename $0` typecho <hostname>"
 	fi
 
 	# Downloading the WordPress' latest and greatest distribution.
@@ -516,12 +516,6 @@ server
 	}
 END
 
-cat >> "/root/$1.mysql.txt" <<END
-[wordpress_myqsl]
-dbname = $dbname
-username = $userid
-password = $passwd
-END
 	invoke-rc.d nginx reload
 		
 
@@ -676,7 +670,7 @@ function install_wordpress_en {
 	check_install wget wget
 	if [ -z "$1" ]
 	then
-		die "Usage: `basename $0` wordpress <hostname>"
+		die "Usage: `basename $0` wordpress_en <hostname>"
 	fi
 
 	# Downloading the WordPress' latest and greatest distribution.
@@ -789,7 +783,7 @@ function install_rainloop {
 	check_install bsdtar bsdtar
 	if [ -z "$1" ]
 	then
-		die "Usage: `basename $0` wordpress <hostname>"
+		die "Usage: `basename $0` rainloop <hostname>"
 	fi
 
 	# Downloading the Rainloop' latest and greatest distribution.
@@ -889,7 +883,7 @@ function install_phpmyadmin {
 	check_install wget wget
 	if [ -z "$1" ]
 	then
-		die "Usage: `basename $0` wordpress <hostname>"
+		die "Usage: `basename $0` phpmyadmin <hostname>"
 	fi
 
 	# Downloading the WordPress' latest and greatest distribution.
