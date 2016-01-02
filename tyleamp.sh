@@ -188,6 +188,7 @@ apt-get -q -y --force-yes install apache2 libapache2-mod-php5 libapache2-mod-rpa
 	sed -i s/'NameVirtualHost \*:80'/'NameVirtualHost \*:168'/g /etc/apache2/ports.conf 
 	sed -i s/'Listen 80'/'Listen 127.0.0.1:168'/g /etc/apache2/ports.conf 
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.old
+	mkdir -p /etc/apache2/conf.d/
 	cat > /etc/apache2/apache2.conf <<EXNDDQW
 #LockFile ${APACHE_LOCK_DIR}/accept.lock
 PidFile \${APACHE_PID_FILE}
