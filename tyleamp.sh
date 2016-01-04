@@ -358,19 +358,6 @@ function install_dhost {
  	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-
-
-
-cat > "/var/www/$1/phpmyadmin.sh" <<END
-#!/bin/bash
-	mkdir /tmp/wordpress.\$$
-	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
-		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
-	rm -rf /tmp/wordpress.\$$
-END
-
-
 # Setting up Nginx mapping
 	cat > "/etc/nginx/conf.d/$1.conf" <<END
 server
@@ -456,19 +443,6 @@ function install_typecho {
  	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-
-cat > "/var/www/$1/phpmyadmin.sh" <<END
-#!/bin/bash
-	mkdir /tmp/wordpress.\$$
-	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
-		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
-	rm -rf /tmp/wordpress.\$$
-END
-
-	# Setting up the MySQL database
-	dbname=`echo $1 | tr . _`
-	userid=`get_domain_name $1`
 	# MySQL userid cannot be more than 15 characters long
 	userid="${dbname:0:15}"
 	passwd=`get_password "$userid@mysql"`
@@ -571,17 +545,6 @@ function install_wordpress_cn {
 	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-
-cat > "/var/www/$1/phpmyadmin.sh" <<END
-#!/bin/bash
-	mkdir /tmp/wordpress.\$$
-	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
-		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
-	rm -rf /tmp/wordpress.\$$
-		cat  ~/.my.cnf
-END
-
 	# Setting up the MySQL database
 	dbname=`echo $1 | tr . _`
 	userid=`get_domain_name $1`
@@ -682,17 +645,6 @@ function install_wordpress_en {
 	rm -rf /tmp/wordpress.$$
 	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
-
-
-cat > "/var/www/$1/phpmyadmin.sh" <<END
-#!/bin/bash
-	mkdir /tmp/wordpress.\$$
-	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
-		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
-	rm -rf /tmp/wordpress.\$$
-		cat  ~/.my.cnf
-END
 
 	# Setting up the MySQL database
 	dbname=`echo $1 | tr . _`
