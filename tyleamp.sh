@@ -366,7 +366,7 @@ cat > "/var/www/$1/phpmyadmin.sh" <<END
 	mkdir /tmp/wordpress.\$$
 	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
 		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
+	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
 	rm -rf /tmp/wordpress.\$$
 END
 
@@ -462,7 +462,7 @@ cat > "/var/www/$1/phpmyadmin.sh" <<END
 	mkdir /tmp/wordpress.\$$
 	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
 		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
+	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
 	rm -rf /tmp/wordpress.\$$
 END
 
@@ -577,7 +577,7 @@ cat > "/var/www/$1/phpmyadmin.sh" <<END
 	mkdir /tmp/wordpress.\$$
 	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
 		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
+	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
 	rm -rf /tmp/wordpress.\$$
 		cat  ~/.my.cnf
 END
@@ -689,7 +689,7 @@ cat > "/var/www/$1/phpmyadmin.sh" <<END
 	mkdir /tmp/wordpress.\$$
 	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
 		tar zxf - -C /tmp/wordpress.\$$
-	mv /tmp/wordpress.\$$/phpMyAdmin \${PWD}
+	mv /tmp/wordpress.\$$/phpMyAdmin* \${PWD}\phpMyAdmin
 	rm -rf /tmp/wordpress.\$$
 		cat  ~/.my.cnf
 END
@@ -891,7 +891,7 @@ function install_phpmyadmin {
 	mkdir /tmp/wordpress.$$
 	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
 		tar zxf - -C /tmp/wordpress.$$
-	mv /tmp/wordpress.$$/phpMyAdmin "/var/www/$1"
+	mv /tmp/wordpress.$$/phpMyAdmin* "/var/www/$1/phpMyAdmin"
 	rm -rf /tmp/wordpress.$$
 	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
