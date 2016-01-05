@@ -28,5 +28,4 @@ bash tyleamp.sh addapache 3  8 #Adjust apache processes, 3 is minial processes n
 bash tyleamp.sh addnginx 2 #Adjust Nginx processes number, please adjust according to your VPS CPU cores
 bash tyleamp.sh sshport 22022 #Chage SSH port to 22022(20000 or bigger number recommended), reboot needed
 bash tyleamp.sh eaccelerator  #Install php accelerator, only for VPS with 256M or more
-bash tyleamp.sh rainloop yourdomain #Install rainloop-the web based IMAP client
 ```
