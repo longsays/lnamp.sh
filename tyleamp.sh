@@ -443,6 +443,9 @@ function install_typecho {
  	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
+        # Setting up the MySQL database
+        dbname=`echo $1 | tr . _`
+        userid=`get_domain_name $1`
 	# MySQL userid cannot be more than 15 characters long
 	userid="${dbname:0:15}"
 	passwd=`get_password "$userid@mysql"`
@@ -752,7 +755,6 @@ END
 	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
-	#
 	# Setting up the MySQL database
 	dbname=`echo $1 | tr . _`
 	userid=`get_domain_name $1`
