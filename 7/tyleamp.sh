@@ -190,7 +190,7 @@ apt-get -q -y --force-yes install apache2 libapache2-mod-php5 libapache2-mod-rpa
 	cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.old
 	mkdir -p /etc/apache2/conf.d/
 	cat > /etc/apache2/apache2.conf <<EXNDDQW
-#LockFile ${APACHE_LOCK_DIR}/accept.lock
+LockFile ${APACHE_LOCK_DIR}/accept.lock
 PidFile \${APACHE_PID_FILE}
 Timeout 300
 KeepAlive On
