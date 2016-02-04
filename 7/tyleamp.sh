@@ -102,6 +102,8 @@ type = unlisted
 }
 END
 
+	#Change conf file to make dropbear able to start
+	sed -i s/'NO_START=1'/'NO_START=0'/g /etc/default/dropbear
 	invoke-rc.d xinetd restart
 }
 
@@ -979,7 +981,7 @@ function update_stable {
 	apt-get -q -y upgrade
 	apt-get -q -y dist-upgrade
 	apt-get -y install libc6 perl debconf dialog bsdutils
-	apt-get -y install apt apt-utils dselect dpkg
+	apt-get -y install apt apt-utils dselect dpkg upstart
 	#~ apt-get -q -y upgrade
 }
 
@@ -1096,21 +1098,8 @@ eaccelerator)
 	install_eaccelerator
 	;;
 sshport)
-cat > /etc/xinetd.d/dropbear <<END
-service dropbear
-{
-socket_type = stream
-only_from = 0.0.0.0
-wait = no
-user = root
-protocol = tcp
-server = /usr/sbin/dropbear
-server_args = -i
-disable = no
-port = $2
-type = unlisted
-}
-END
+	# Modify the sshport
+	sed -i s/'DROPBEAR_PORT=.*$'/'DROPBEAR_PORT='$2/g /etc/default/dropbear
 echo "Please reboot.."
 		;;
 addnginx)
