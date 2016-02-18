@@ -843,12 +843,12 @@ function install_phpmyadmin {
 		die "Usage: `basename $0` phpmyadmin <hostname>"
 	fi
 
-	# Downloading the WordPress' latest and greatest distribution.
-	mkdir /tmp/wordpress.$$
+	# Downloading the phpmyadmin latest and greatest distribution.
+	mkdir /tmp/phpmyadmin.$$
 	wget -O - https://files.phpmyadmin.net/phpMyAdmin/4.4.13.1/phpMyAdmin-4.4.13.1-all-languages.tar.gz | \
-		tar zxf - -C /tmp/wordpress.$$
-	mv /tmp/wordpress.$$/phpMyAdmin* "/var/www/$1/phpMyAdmin"
-	rm -rf /tmp/wordpress.$$
+		tar zxf - -C /tmp/phpmyadmin.$$
+	mv /tmp/phpmyadmin.$$/phpMyAdmin* "/var/www/$1/phpMyAdmin"
+	rm -rf /tmp/phpmyadmin.$$
 	chown -R www-data "/var/www/$1"
 	chmod -R 755 "/var/www/$1"
 
