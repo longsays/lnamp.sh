@@ -125,7 +125,6 @@ function install_mysql {
 
 	# all the related files.
 	invoke-rc.d mysql stop
-	rm -f /var/lib/mysql/ib*
 	cat > /etc/mysql/conf.d/actgod.cnf <<END
 [mysqld]
 key_buffer_size = 8M
